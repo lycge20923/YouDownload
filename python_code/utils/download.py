@@ -1,15 +1,29 @@
 from pytube import YouTube
 import argparse
 import os
-def download_mp4(url:str, downloadpath:str) -> None:
-    pass
+from pytubefix import YouTube as YouTube_ver2
+from pytubefix.cli import on_progress
+
+def download_mp4(url:str, download_path:str) -> None:
+
+    yt = YouTube_ver2(url, on_progress_callback = on_progress)
+    ys = yt.streams.get_highest_resolution()
+    
+    try:
+        ys.download(download_path)
+    except:
+        os.system(f'rm "{download_path}"')
+        ys.download(download_path)
+    original_path = os.path.join(download_path,os.path.basename(download_path))
+    os.system(f'mv "{original_path}" "{download_path}"_temp')
+    os.system(f'rm -r "{download_path}"')
+    os.system(f'mv "{download_path}"_temp "{download_path}"')
 
 def adjust_MPEG3(filepath:str) -> None:
-    print(filepath)
+
     #move the file to the temp directory
     temp_folder_name = os.path.join(os.path.dirname(filepath), 'temp')
     temp_file_name = os.path.join(temp_folder_name, os.path.basename(filepath))
-    print('test', temp_folder_name, os.path.basename(filepath), temp_file_name)
     
     cmd1 = f"mkdir '{temp_folder_name}'"
     cmd2 = f"mv '{filepath}' '{temp_file_name}'"
