@@ -4,6 +4,32 @@
 
 * Make a youtube downloader
 
+## Usage
+
+### mp3/mp4
+
+* First create a virtual environment
+
+    * e.g. I create a name ```YoutubeDownload``` environment
+
+* Second, create a directory, and create a file ```list.txt``` in the directory. The ```list.txt``` should be in the formate:
+
+    ```
+    website 1, name 1
+    website 2, name 2
+    .
+    .
+    .
+    ```
+
+* Finally, conduct the following command
+
+    ```
+    python main.py --list_path <the path of list.txt> --setting mp3 #mp3
+    python main.py --list_path <the path of list.txt> --setting mp4 #mp4
+
+    ```
+
 ## Notes
 
 ### Adjust ```pytube``` package
