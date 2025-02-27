@@ -18,14 +18,14 @@ def read_path_and_name(path:str, suffix:str) -> list:
 def add_argument():
     parser = argparse.ArgumentParser()
     parser.add_argument('--list_path', required=True)
-    parser.add_argument('--setting', help='Choose "mp3" or "mp4"', required=True)
+    parser.add_argument('--setting', help='Choose "mp3", "m4a" or "mp4"', required=True)
     return parser
 
 if __name__ == '__main__':
     args = add_argument().parse_args()
     music_list = read_path_and_name(args.list_path, args.setting)
     #print(music_list)
-    if args.setting == "mp3":
+    if args.setting == "mp3" or args.setting == "m4a":
         for url, path in music_list:
             download_mp3(url, path)
     elif args.setting == "mp4":
