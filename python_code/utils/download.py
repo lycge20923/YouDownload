@@ -34,14 +34,15 @@ def convert_m4a_to_mp3(m4a_file_path, mp3_file_path):
 def download_mp3(url:str, download_path:str) -> None:
     yt = YouTube(url, on_progress_callback=on_progress, use_po_token=True)
     ys = yt.streams.get_audio_only()
-    ys.download()
+    file_name = f"{download_path.split('/')[-1]}.m4a"
+    ys.download(filename=file_name)
     if download_path.split('.')[-1] == "mp3":
-        convert_m4a_to_mp3(f"{yt.title}.m4a", download_path)
-        os.system(f'rm "{yt.title}.m4a"')
+        convert_m4a_to_mp3(file_name, download_path)
+        os.system(f'rm "{file_name}"')
     elif download_path.split('.')[-1] == "m4a":
-        os.system(f'mv "{yt.title}.m4a" "{download_path}"')
+        os.system(f'mv "{file_name}" "{download_path}"')
     else:
-        raise ValueError("Unknown download file extention.")
+        raise ValueError("Unknown download file extension.")
 
 def addParsers():
     parser = argparse.ArgumentParser()
